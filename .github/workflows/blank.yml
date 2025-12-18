@@ -18,4 +18,9 @@ jobs:
         key: ${{ secrets.SERVER_SSH_KEY }}
         script: |
           source ./venv/bin/activate
-          mlflow models serve -m runs:/test/model -p 1234
+          kubectl exec -n mlflow mlflow-8557c6955d-q8qfp -- \
+            nohup mlflow models serve \
+            -m /path/to/model/in/pod \
+            --host 0.0.0.0 \
+            --port 8080 \
+            --no-conda > /tmp/mlflow_serve.log 2>&1 &
