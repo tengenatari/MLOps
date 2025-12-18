@@ -17,4 +17,5 @@ jobs:
         username: ${{ secrets.SERVER_USER }}
         key: ${{ secrets.SERVER_SSH_KEY }}
         script: |
-          cd ..
+          source ./venv/bin/activate
+          mlflow models serve -m runs:/test/model -p 1234
